@@ -17,9 +17,10 @@ $(document).mousemove(function(e){
         speechSynthesis.speak(msgaltnew);
         speechSynthesis.speak(msglabelnew);
 		}
-    stopSpeaker(){
+    function stopSpeaker(){
     	speechSynthesis.cancel();
     }
+
 	function classCheck()
     {
 	    if(target.is(".speakText") ) {
