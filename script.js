@@ -18,12 +18,12 @@ $(document).mousemove(function(e){
         speechSynthesis.speak(msglabelnew);
 		}
     function stopSpeaker(){
-    	speechSynthesis.cancel();
+    	speechSynthesis.cancel(); 
     }
 
 	function classCheck()
     {
-        if(target.is(".speakText") ) {
+        if(target.is(".speakText")) {
             speaker();
             var isSpeaking=true;
             // USE CTRL TO STOP
@@ -39,9 +39,9 @@ $(document).mousemove(function(e){
 
     if(tagList.indexOf(target.prop("tagName")) == -1){
     	target.addClass("speakText");
-		if(target.mouseleave(){
-			stopSpeaker();
-		})
+		$(target).mouseleave(function(){
+            stopSpeaker();  
+        });
 		classCheck();
     }	 	
 });
