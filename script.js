@@ -3,7 +3,7 @@ var isSpeaking = false;
 $(document).ready(function(){ 
     chrome.storage.sync.get({
         setState: 'enable',
-        setRate: '1',
+        setRate: '0.5',
         }, function(items) {
             if (items.setState === "enable")
             {
@@ -16,6 +16,7 @@ $(document).ready(function(){
                     speechSynthesis.speak(fullscreenmsg);   
                 }
             });
+
             // MAIN PROGRAM
             $(document).mousemove(function (e) {
                 //SELECT TARGET
@@ -102,7 +103,6 @@ $(document).ready(function(){
                         
                     }
                 }
-
                 if(tagList.indexOf(target.prop("tagName")) == -1){
                     target.addClass("speakText");
                     setTimeout(function(){

@@ -15,10 +15,9 @@
     "persistent": false
   },
    "options_ui": {
-    // Required.
-    "page": "options.html"
+    "page": "options/options.html"
   },
-  // "options_page": "options.html",
+
 
   "content_scripts": 
     [

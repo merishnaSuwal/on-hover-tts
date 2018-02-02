@@ -12,13 +12,13 @@ function save_options() {
     setTimeout(function() {
       status.textContent = '';
     }, 750);
-    console.log(document.getElementById('state').value);
+
   });
 }
 function restore_options() {
   chrome.storage.sync.get({
     setState: 'enable',
-    setRate: '1',
+    setRate: '0.5',
   }, function(items) {
     document.getElementById('state').value = items.setState;
     document.getElementById("myRange").value = items.setRate;
@@ -27,11 +27,11 @@ function restore_options() {
 
 var slider = document.getElementById("myRange");
 var output = document.getElementById("demo");
-output.innerHTML = slider.value; // Display the default slider value
+output.innerHTML = slider.value/2; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
-    output.innerHTML = this.value;
+    output.innerHTML = this.value/2;
 } 
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click',
