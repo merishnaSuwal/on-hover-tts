@@ -17,20 +17,31 @@ $(document).ready(function(){
             });
             // MAIN PROGRAM
             $(document).mousemove(function (e) {
-
+                //SELECT TARGET
                 var target = $(e.target);
-                var inputtext = target.val();
+
+                //FOR INPUT FIELD
+                var inputtext = target.attr("placeholder");
+                if(target.prop("tagName")=="INPUT"){
+                   inputtext = "Input" + inputtext;
+                }
                 var inputmsg = new SpeechSynthesisUtterance(inputtext);
                 inputmsg.rate=items.setRate;
+
+                //FOR BUTTON TEXT
                 var msgtext = target.text();
                 if(target.prop("tagName")=="BUTTON"){
                    msgtext = "Button" + msgtext;
                 }
                 var msg = new SpeechSynthesisUtterance(msgtext);
                 msg.rate=items.setRate;
+
+                //FOR ALT TEXT
                 var msgalt = target.attr("alt");
                 var msgaltnew = new SpeechSynthesisUtterance(msgalt);
                 msgaltnew.rate=items.setRate;
+
+                //FOR ARIA LABELS
                 var msglabel= target.attr('aria-label');
                 var msglabelnew = new SpeechSynthesisUtterance(msglabel);
                 msglabelnew.rate=items.setRate;
@@ -66,10 +77,7 @@ $(document).ready(function(){
                         } 
                     }
                 }
-                // console.log(target.prop("tagName"));
-                //  if(target.prop("tagName") === "DIV"){    
-                //     console.log(target.width.val);
-                // }
+                
                 if(tagList.indexOf(target.prop("tagName")) == -1){
                     target.addClass("speakText");
                     setTimeout(function(){
