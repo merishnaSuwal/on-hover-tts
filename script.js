@@ -2,7 +2,7 @@ var tagList = ['HTML', 'HEAD', 'BODY', 'DIV', 'SECTION'];
 
 $(document).mousemove(function(e){
 	var target = $(e.target);
-    var inputtext = target.val();
+    var inputtext = target.value();
     var inputmsg = new SpeechSynthesisUtterance(inputtext);
     var msgtext = target.text();
     var msg = new SpeechSynthesisUtterance(msgtext);
@@ -23,22 +23,14 @@ $(document).mousemove(function(e){
 
 	function classCheck()
     {
-	    if(target.is(".speakText") ) {
-	        speaker();
-	        var isSpeaking=true;
-	        // USE CTRL TO STOP
-	       if(isSpeaking) {
-	            $(document).keyup(function(e) {
-	                if(e.key === "Control"){
-	                stopSpeaker();
-	            }
-            });
         } 
     }
+
     if(tagList.indexOf(target.prop("tagName")) == -1){
     	target.addClass("speakText");
-
-
+		if(target.mouseleave(){
+			stopSpeaker();
+		})
     }	
 
 
