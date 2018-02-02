@@ -1,31 +1,38 @@
 {
-	"manifest_version": 2,
-	  "name": "On Hover Text-to-speech synthesizer",
-	  "version": "0.1",
-	  "description": "This extension allows the user to speak the mouse hovered text on the webpage",
-   	 //  "icons": {
-    	// "128": " ",
-    	// "48": " ",
-    	// "16": " "
-    // },
+  "manifest_version": 2,
 
-    "background": {
-	    "scripts": ["jquery-3.3.1.min.js","script.js"],
-	    "persistent": false
-  	},
-	"content_scripts": 
+  "name": "On-hover TTS synthesizer",
+  "description": "This extension allows the user to speak the mouse hovered text on the webpage",
+  "version": "0.1",
+   // "icons": {
+   //  "128": "images/icon128.png",
+   //  "48": "images/icon48.png",
+   //  "16": "images/icon16.png"
+   //  },
+
+  "background": {
+    "scripts": ["jquery-3.3.1.min.js","script.js"],
+    "persistent": false
+  },
+   "options_ui": {
+    // Required.
+    "page": "options.html"
+  },
+  // "options_page": "options.html",
+
+  "content_scripts": 
     [
         {   
-            "matches": [ "http://*/*", "https://*/*" ],  
+            "matches": [ "http://*/*", "https://*/*"],  
             "js":["jquery-3.3.1.min.js","script.js"]
         }
     ],
 
-    "permissions": [
-        "tabs",
-        "activeTab",
-        "http://*/",
-        "https://*/",
-        "storage"
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "http://*/",
+    "https://*/",
+    "storage"
   ]
 }
