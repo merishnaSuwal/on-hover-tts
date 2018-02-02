@@ -54,7 +54,6 @@ $(document).ready(function(){
                 //TO SPEAK
                 function speaker()
                 {   
-                    //$(target).css("font-size", "40px");
                     speechSynthesis.speak(msg);
                     speechSynthesis.speak(inputmsg);
                     speechSynthesis.speak(msgaltnew);
