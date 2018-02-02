@@ -16,7 +16,7 @@ $(document).ready(function(){
                     speechSynthesis.speak(fullscreenmsg);   
                 }
             });
-
+	    // START OF
             // MAIN PROGRAM
             $(document).mousemove(function (e) {
                 //SELECT TARGET
