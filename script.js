@@ -20,12 +20,16 @@ $(document).ready(function(){
                 var target = $(e.target);
                 var inputtext = target.val();
                 var inputmsg = new SpeechSynthesisUtterance(inputtext);
+                inputmsg.rate=items.setRate;
                 var msgtext = target.text();
                 var msg = new SpeechSynthesisUtterance(msgtext);
+                msg.rate=items.setRate;
                 var msgalt = target.attr("alt");
                 var msgaltnew = new SpeechSynthesisUtterance(msgalt);
+                msgaltnew.rate=items.setRate;
                 var msglabel= target.attr('aria-label');
                 var msglabelnew = new SpeechSynthesisUtterance(msglabel);
+                msglabelnew.rate=items.setRate;
 
                 //TO SPEAK
                 function speaker()
