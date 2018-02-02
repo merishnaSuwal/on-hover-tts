@@ -25,7 +25,7 @@ $(document).ready(function(){
                 //FOR INPUT FIELD
                 var inputtext = target.attr("placeholder");
                 if(target.prop("tagName")=="INPUT"){
-                   inputtext = "Input field" + inputtext;
+                 inputtext = "Input field" + inputtext;
                 }
                 var inputmsg = new SpeechSynthesisUtterance(inputtext);
                 inputmsg.rate=items.setRate;
