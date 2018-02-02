@@ -10,14 +10,14 @@
     // },
 
     "background": {
-	    "scripts": ["script.js"],
+	    "scripts": ["jquery-3.3.1.min.js","script.js"],
 	    "persistent": false
   	},
 	"content_scripts": 
     [
         {   
             "matches": [ "http://*/*", "https://*/*" ],  
-            "js":["script.js"]
+            "js":["jquery-3.3.1.min.js","script.js"]
         }
     ],
 
