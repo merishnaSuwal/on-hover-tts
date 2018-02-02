@@ -23,7 +23,18 @@ $(document).mousemove(function(e){
 
 	function classCheck()
     {
-        } 
+        if(target.is(".speakText") ) {
+            speaker();
+            var isSpeaking=true;
+            // USE CTRL TO STOP
+            if(isSpeaking) {
+                $(document).keyup(function(e) {
+                    if(e.key === "Control"){
+                    stopSpeaker();
+                }
+                });
+            } 
+        }
     }
 
     if(tagList.indexOf(target.prop("tagName")) == -1){
@@ -31,9 +42,6 @@ $(document).mousemove(function(e){
 		if(target.mouseleave(){
 			stopSpeaker();
 		})
-    }	
-
-
-    	
-
+		classCheck();
+    }	 	
 });
