@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "On-hover TTS synthesizer",
+  "name": "On-hover speech synthesizer",
   "description": "This extension allows the user to speak the mouse hovered text on the webpage",
   "version": "0.1",
    // "icons": {
@@ -24,13 +24,16 @@
     [
         {   
             "matches": [ "http://*/*", "https://*/*"],  
-            "js":["jquery-3.3.1.min.js","script.js"]
+            "js":["jquery-3.3.1.min.js","script.js"],
+            "run_at": "document_idle"
         }
     ],
 
   "permissions": [
     "activeTab",
     "tabs",
+    "notifications",
+    "webNavigation",
     "http://*/",
     "https://*/",
     "storage"
