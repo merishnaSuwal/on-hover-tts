@@ -24,9 +24,7 @@ function restore_options() {
     document.getElementById("myRange").value = items.setRate;
   });
 }
-document.addEventListener('DOMContentLoaded', restore_options);
-document.getElementById('save').addEventListener('click',
-    save_options);
+
 var slider = document.getElementById("myRange");
 var output = document.getElementById("demo");
 output.innerHTML = slider.value; // Display the default slider value
@@ -34,5 +32,9 @@ output.innerHTML = slider.value; // Display the default slider value
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
     output.innerHTML = this.value;
-}
+} 
+document.addEventListener('DOMContentLoaded', restore_options);
+document.getElementById('save').addEventListener('click',
+    save_options);
+
 

@@ -1,4 +1,5 @@
 var tagList = ['HTML', 'HEAD', 'BODY', 'DIV', 'SECTION']; 
+var isSpeaking = false;
 $(document).ready(function(){ 
     chrome.storage.sync.get({
         setState: 'enable',
@@ -23,7 +24,7 @@ $(document).ready(function(){
                 //FOR INPUT FIELD
                 var inputtext = target.attr("placeholder");
                 if(target.prop("tagName")=="INPUT"){
-                   inputtext = "Input" + inputtext;
+                   inputtext = "Input field" + inputtext;
                 }
                 var inputmsg = new SpeechSynthesisUtterance(inputtext);
                 inputmsg.rate=items.setRate;
@@ -31,7 +32,10 @@ $(document).ready(function(){
                 //FOR BUTTON TEXT
                 var msgtext = target.text();
                 if(target.prop("tagName")=="BUTTON"){
-                   msgtext = "Button" + msgtext;
+                   msgtext = "Button text" + msgtext;
+                }
+                if(target.prop("tagName")=="A"){
+                   msgtext = "Link text" + msgtext;
                 }
                 var msg = new SpeechSynthesisUtterance(msgtext);
                 msg.rate=items.setRate;
@@ -55,6 +59,14 @@ $(document).ready(function(){
                     speechSynthesis.speak(msgaltnew);
                     speechSynthesis.speak(msglabelnew);
                 }
+                function pauseSpeaker(){
+                    target.removeClass("speakText");
+                    speechSynthesis.pause();
+                }
+                function resumeSpeaker(){
+                    target.addClass("speakText");
+                    speechSynthesis.resume();
+                }
                 //TO STOP
                 function stopSpeaker()
                 {
@@ -71,13 +83,26 @@ $(document).ready(function(){
                         if(isSpeaking) {
                             $(document).keyup(function(e) {
                                 if(e.key === "Control"){
-                                stopSpeaker();
-                            }
-                            });
-                        } 
+                                    pauseSpeaker();
+                                    var isSpeaking = false;
+                                    console.log(isSpeaking);
+                                }
+                                $(document).keyup(function(e) {
+                                    if(!isSpeaking){
+                                    
+                                        if(e.key === "Shift"){
+                                            resumeSpeaker();
+                                            var isSpeaking = true;
+                                            console.log(isSpeaking);
+                                        }
+                                    }
+                                });
+                           });
+                        }
+                        
                     }
                 }
-                
+
                 if(tagList.indexOf(target.prop("tagName")) == -1){
                     target.addClass("speakText");
                     setTimeout(function(){
