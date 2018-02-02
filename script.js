@@ -17,11 +17,15 @@ $(document).ready(function(){
             });
             // MAIN PROGRAM
             $(document).mousemove(function (e) {
+
                 var target = $(e.target);
                 var inputtext = target.val();
                 var inputmsg = new SpeechSynthesisUtterance(inputtext);
                 inputmsg.rate=items.setRate;
                 var msgtext = target.text();
+                if(target.prop("tagName")=="BUTTON"){
+                   msgtext = "Button" + msgtext;
+                }
                 var msg = new SpeechSynthesisUtterance(msgtext);
                 msg.rate=items.setRate;
                 var msgalt = target.attr("alt");
@@ -62,14 +66,18 @@ $(document).ready(function(){
                         } 
                     }
                 }
+                // console.log(target.prop("tagName"));
+                //  if(target.prop("tagName") === "DIV"){    
+                //     console.log(target.width.val);
+                // }
                 if(tagList.indexOf(target.prop("tagName")) == -1){
-                        target.addClass("speakText");
-                       setTimeout(function(){
-                            $(target).mouseleave(function(){
-                                stopSpeaker();  
-                            });
-                       },100);
-                        classCheck();     
+                    target.addClass("speakText");
+                    setTimeout(function(){
+                        $(target).mouseleave(function(){
+                            stopSpeaker();  
+                        });
+                    },10);
+                    classCheck();     
                     }
             }); //END of MAIN PROGRAM
         }    
