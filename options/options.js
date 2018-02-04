@@ -22,6 +22,7 @@ function restore_options() {
   }, function(items) {
     document.getElementById('state').value = items.setState;
     document.getElementById("myRange").value = items.setRate;
+    document.getElementById("demo").innerHTML = document.getElementById("myRange").value/2;
   });
 }
 
