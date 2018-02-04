@@ -12,7 +12,7 @@ function save_options() {
     setTimeout(function() {
       status.textContent = '';
     }, 750);
-
+    close();
   });
 }
 function restore_options() {
