@@ -12,6 +12,11 @@ function save_options() {
     setTimeout(function() {
       status.textContent = '';
     }, 750);
+    chrome.tabs.query({windowType:'normal'}, function(tabs) {
+      for(var i = 0; i < tabs.length; i++) {
+          chrome.tabs.update(tabs[i].id, {url: tabs[i].url});
+      }
+    }); 
     close();
   });
 }
