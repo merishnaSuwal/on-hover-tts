@@ -1,5 +1,7 @@
 var tagList = ['HTML', 'HEAD', 'BODY', 'DIV', 'SECTION']; 
 var isSpeaking = false;
+
+
 $(document).ready(function(){ 
     chrome.storage.sync.get({
         setState: 'enable',
@@ -13,23 +15,30 @@ $(document).ready(function(){
                     var fullscreentext = "Full screen on";
                     var fullscreenmsg = new SpeechSynthesisUtterance(fullscreentext);
                     fullscreenmsg.rate=items.setRate;
-                    speechSynthesis.speak(fullscreenmsg);   
+                    chrome.runtime.sendMessage({toSay: fullscreentext}, function() {});
+                  //  speechSynthesis.speak(fullscreenmsg);   
                 }
             });
 	    // START OF
             // MAIN PROGRAM
+            function ttsSpeaker(x){
+                chrome.runtime.sendMessage({toSay: x}, function() {});
+            }
+            function ttsStopper(x){
+                chrome.runtime.sendMessage({toSay: "STOP"}, function() {});
+            }
+
             $(document).mousemove(function (e) {
                 //SELECT TARGET
+
                 var target = $(e.target);
+                if(target!=$(e.target){
 
                 //FOR INPUT FIELD
                 var inputtext = target.attr("placeholder");
                 if(target.prop("tagName")=="INPUT"){
                  inputtext = "Input field" + inputtext;
                 }
-                var inputmsg = new SpeechSynthesisUtterance(inputtext);
-                inputmsg.rate=items.setRate;
-
                 //FOR BUTTON TEXT
                 var msgtext = target.text();
                 if(target.prop("tagName")=="BUTTON"){
@@ -38,40 +47,34 @@ $(document).ready(function(){
                 if(target.prop("tagName")=="A"){
                    msgtext = "Link text" + msgtext;
                 }
-                var msg = new SpeechSynthesisUtterance(msgtext);
-                msg.rate=items.setRate;
-
                 //FOR ALT TEXT
                 var msgalt = target.attr("alt");
-                var msgaltnew = new SpeechSynthesisUtterance(msgalt);
-                msgaltnew.rate=items.setRate;
 
                 //FOR ARIA LABELS
                 var msglabel= target.attr('aria-label');
-                var msglabelnew = new SpeechSynthesisUtterance(msglabel);
-                msglabelnew.rate=items.setRate;
-
+                }
                 //TO SPEAK
                 function speaker()
                 {   
-                    speechSynthesis.speak(msg);
-                    speechSynthesis.speak(inputmsg);
-                    speechSynthesis.speak(msgaltnew);
-                    speechSynthesis.speak(msglabelnew);
+                    ttsSpeaker(msgtext);
+                    ttsSpeaker(msgalt);
+                    ttsSpeaker(msglabel);
+                    ttsSpeaker(inputtext);
                 }
+
                 function pauseSpeaker(){
                     target.removeClass("speakText");
-                    speechSynthesis.pause();
+                    ttsStopper();
                 }
                 function resumeSpeaker(){
                     target.addClass("speakText");
-                    speechSynthesis.resume();
+                    ttsStopper();
                 }
                 //TO STOP
                 function stopSpeaker()
                 {
                     target.removeClass("speakText");
-                    speechSynthesis.cancel();
+                    ttsStopper();
                 }
                 //TO CHECK CLASS
                 function classCheck()
@@ -85,7 +88,6 @@ $(document).ready(function(){
                                 if(e.key === "Control"){
                                     pauseSpeaker();
                                     var isSpeaking = false;
-                                    console.log(isSpeaking);
                                 }
                                 $(document).keyup(function(e) {
                                     if(!isSpeaking){
@@ -93,7 +95,6 @@ $(document).ready(function(){
                                         if(e.key === "Shift"){
                                             resumeSpeaker();
                                             var isSpeaking = true;
-                                            console.log(isSpeaking);
                                         }
                                     }
                                 });
