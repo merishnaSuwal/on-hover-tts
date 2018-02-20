@@ -9,36 +9,33 @@ $(document).ready(function(){
         }, function(items) {
             if (items.setState === "enable")
             {
+            
+	    // START OF
+            // MAIN PROGRAM
+            function ttsSpeaker(x){
+                chrome.runtime.sendMessage({toSay: x, stop: "NO", resumer: "NO", pauser: "NO"}, function() {});
+            }
+            function ttsStop(x){
+                chrome.runtime.sendMessage({toSay: x, stop: "YES", resumer: "NO", pauser: "NO"}, function() {});
+            }
+            function ttsPause(x){
+                chrome.runtime.sendMessage({toSay: x, stop: "NO", resumer: "NO", pauser: "YES"}, function() {});
+            }
+            function ttsResume(x){
+                chrome.runtime.sendMessage({toSay: x, stop: "NO", resumer: "YES", pauser: "NO"}, function() {});
+            }
             $(document).keydown(function(e){
                 if(e.key == 'F11')
                 {
                     var fullscreentext = "Full screen on";
-                    var fullscreenmsg = new SpeechSynthesisUtterance(fullscreentext);
-                    fullscreenmsg.rate=items.setRate;
-                    chrome.runtime.sendMessage({toSay: fullscreentext}, function() {});
-                  //  speechSynthesis.speak(fullscreenmsg);   
+                    ttsSpeaker(fullscreentext);
                 }
             });
-	    // START OF
-            // MAIN PROGRAM
-            function ttsSpeaker(x){
-                chrome.runtime.sendMessage({toSay: x}, function() {});
-            }
-            function ttsStopper(){
-                chrome.runtime.sendMessage({toSay: "STOP"}, function() {});
-            }
-            function ttsPause(){
-                chrome.runtime.sendMessage({toSay: "PAUSE"}, function() {});
-            }
-            function ttsResume(){
-                chrome.runtime.sendMessage({toSay: "RESUME"}, function() {});
-            }
 
-            $(document).mousemove(function (e) {
+            $(document).mouseover(function (e) {
                 //SELECT TARGET
 
-                var target = $(e.target);
-                
+                var target = $(e.target);                
 
                 //FOR INPUT FIELD
                 var inputtext = target.attr("placeholder");
@@ -70,17 +67,24 @@ $(document).ready(function(){
 
                 function pauseSpeaker(){
                     target.removeClass("speakText");
-                    ttsPause();
+                    ttsPause(msgtext);
+                    ttsPause(msgalt);
+                    ttsPause(msglabel);
+                    ttsPause(inputtext);
                 }
                 function resumeSpeaker(){
                     target.addClass("speakText");
-                    ttsResume();
+                    ttsResume(msgtext);
+                    ttsResume(msgalt);
+                    ttsResume(msglabel);
+                    ttsResume(inputtext);
+
                 }
                 //TO STOP
                 function stopSpeaker()
                 {
                     target.removeClass("speakText");
-                    ttsStopper();
+                    ttsStop("STOP");
                 }
                 //TO CHECK CLASS
                 function classCheck()
@@ -116,7 +120,7 @@ $(document).ready(function(){
                             stopSpeaker();  
                         });
                     },10);
-                    classCheck();     
+                    classCheck();   
                     }
             }); //END of MAIN PROGRAM
         }    
