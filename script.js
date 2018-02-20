@@ -24,15 +24,21 @@ $(document).ready(function(){
             function ttsSpeaker(x){
                 chrome.runtime.sendMessage({toSay: x}, function() {});
             }
-            function ttsStopper(x){
+            function ttsStopper(){
                 chrome.runtime.sendMessage({toSay: "STOP"}, function() {});
+            }
+            function ttsPause(){
+                chrome.runtime.sendMessage({toSay: "PAUSE"}, function() {});
+            }
+            function ttsResume(){
+                chrome.runtime.sendMessage({toSay: "RESUME"}, function() {});
             }
 
             $(document).mousemove(function (e) {
                 //SELECT TARGET
 
                 var target = $(e.target);
-                if(target!=$(e.target){
+                
 
                 //FOR INPUT FIELD
                 var inputtext = target.attr("placeholder");
@@ -52,7 +58,7 @@ $(document).ready(function(){
 
                 //FOR ARIA LABELS
                 var msglabel= target.attr('aria-label');
-                }
+
                 //TO SPEAK
                 function speaker()
                 {   
@@ -64,11 +70,11 @@ $(document).ready(function(){
 
                 function pauseSpeaker(){
                     target.removeClass("speakText");
-                    ttsStopper();
+                    ttsPause();
                 }
                 function resumeSpeaker(){
                     target.addClass("speakText");
-                    ttsStopper();
+                    ttsResume();
                 }
                 //TO STOP
                 function stopSpeaker()

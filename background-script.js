@@ -4,4 +4,10 @@ chrome.runtime.onMessage.addListener(function(request) {
   if (request.toSay == "STOP"){
     chrome.tts.stop();
   }
+  if (request.toSay == "PAUSE"){
+    chrome.tts.pause();
+  }
+  if (request.toSay == "RESUME"){
+    chrome.tts.resume();
+  }
 });
