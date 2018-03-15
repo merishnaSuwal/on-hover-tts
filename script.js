@@ -13,16 +13,16 @@ $(document).ready(function(){
     	        // START OF
                 // MAIN PROGRAM
                 function ttsSpeaker(x,y){
-                    chrome.runtime.sendMessage({speakRate: y, toSay: x, stop: "NO", resumer: "NO", pauser: "NO"}, function() {});
+                    chrome.runtime.sendMessage({speakRate: y, toSay: x, operation:"SPEAK" }, function() {});
                 }
                 function ttsStop(x,y){
-                    chrome.runtime.sendMessage({speakRate: y, toSay: x,stop: "YES",resumer: "NO", pauser: "NO"}, function() {});
+                    chrome.runtime.sendMessage({speakRate: y, toSay: x, operation:"STOP"}, function() {});
                 }
                 function ttsPause(x,y){
-                    chrome.runtime.sendMessage({speakRate: y, toSay: x, stop: "NO",resumer: "NO", pauser: "YES"}, function() {});
+                    chrome.runtime.sendMessage({speakRate: y, toSay: x, operation:"PAUSE"}, function() {});
                 }
                 function ttsResume(x,y){
-                    chrome.runtime.sendMessage({speakRate: y,toSay: x, stop: "NO",resumer: "YES", pauser: "YES"}, function() {});
+                    chrome.runtime.sendMessage({speakRate: y,toSay: x, operation:"RESUME" }, function() {});
                 }
                 $(document).keydown(function(e){
                     if(e.key == 'F11')

@@ -5,9 +5,9 @@
   "description": "This extension allows the user to speak the mouse hovered text on the webpage",
   "version": "0.1",
    "icons": {
-    "128": "images/icon128.png",
-    "48": "images/icon48.png",
-    "16": "images/icon16.png"
+    "128": "images/128icon.png",
+    "48": "images/48icon.png",
+    "16": "images/16icon.png"
     },
 
   "background": {
