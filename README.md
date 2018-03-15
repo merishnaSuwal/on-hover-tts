@@ -7,5 +7,5 @@ Go to **options** to *enable/disable* or to *set speed of narration*.
 
 Hover on text to read. 
 
-Press *"Control"* button to pause read. 
-Press *"Shift"* button to resume read.
+- Press *"Control"* button to pause read. 
+- Press *"Shift"* button to resume read.
