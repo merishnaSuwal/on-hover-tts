@@ -1,8 +1,11 @@
-On-hover text-to-speech synthesizer
+# Mouse Enabled Accessible Reading (MouseEAR)
 
-Install extension. 
-Use options to enable/disable or to set speed of narration.
+##  On-hover text-to-speech synthesizer
+
+Install extension on Google Chrome. 
+Go to **options** to *enable/disable* or to *set speed of narration*.
+
 Hover on text to read. 
 
-Press "Control" button to pause read. 
-Press "Shift" button to resume read.
+Press *"Control"* button to pause read. 
+Press *"Shift"* button to resume read.
