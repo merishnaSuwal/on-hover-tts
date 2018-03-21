@@ -14,11 +14,28 @@ $(document).ready(function(){
                 console.log(screenw);
                 console.log(screenh);
                 var mouseX, mouseY;
+                     // START OF
+                // MAIN PROGRAM
+                function ttsSpeaker(x,y){
+                    chrome.runtime.sendMessage({speakRate: y, toSay: x, operation:"SPEAK" }, function() {});
+                }
+                function ttsStop(x,y){
+                    chrome.runtime.sendMessage({speakRate: y, toSay: x, operation:"STOP"}, function() {});
+                }
+                function ttsPause(x,y){
+                    chrome.runtime.sendMessage({speakRate: y, toSay: x, operation:"PAUSE"}, function() {});
+                }
+                function ttsResume(x,y){
+                    chrome.runtime.sendMessage({speakRate: y,toSay: x, operation:"RESUME" }, function() {});
+                }
                 setTimeout(function(){                                 
                     $(document).mousemove(function(e) {
                         mouseX = e.pageX;
                         mouseY = e.pageY;
-                        
+                        function alertspeak(){
+                            var alerttext = "Mouse outside the window";
+                            ttsSpeaker(alerttext, items.setRate);
+                            }
                         if (mouseX<=20 || mouseX>=screenw-20) {
                             alertspeak();
                             console.log("OUT");
@@ -33,20 +50,7 @@ $(document).ready(function(){
                         // console.log(mouseY);
 
                     }).mouseover();  
-                },100);     // START OF
-                // MAIN PROGRAM
-                function ttsSpeaker(x,y){
-                    chrome.runtime.sendMessage({speakRate: y, toSay: x, operation:"SPEAK" }, function() {});
-                }
-                function ttsStop(x,y){
-                    chrome.runtime.sendMessage({speakRate: y, toSay: x, operation:"STOP"}, function() {});
-                }
-                function ttsPause(x,y){
-                    chrome.runtime.sendMessage({speakRate: y, toSay: x, operation:"PAUSE"}, function() {});
-                }
-                function ttsResume(x,y){
-                    chrome.runtime.sendMessage({speakRate: y,toSay: x, operation:"RESUME" }, function() {});
-                }
+                },100);
                 // FULLSCREEN KEY ALERT
                 $(document).keydown(function(e){
                     if(e.key == 'F11')
@@ -113,10 +117,7 @@ $(document).ready(function(){
                         ttsStop();
                     }
 
-                    function alertspeak(){
-                        var alerttext = "Mouse outside the window";
-                        ttsSpeaker(alerttext, items.setRate);
-                    }
+                   
                     //TO CHECK CLASS OF THE TARGET 
                     function classCheck()
                     {
