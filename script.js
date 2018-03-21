@@ -9,8 +9,31 @@ $(document).ready(function(){
         }, function(items) {
             if (items.setState === "enable")
             {
-               
-    	        // START OF
+               	var screenw = $( window ).width();
+                var screenh = $( window ).height();
+                console.log(screenw);
+                console.log(screenh);
+                var mouseX, mouseY;
+                setTimeout(function(){                                 
+                    $(document).mousemove(function(e) {
+                        mouseX = e.pageX;
+                        mouseY = e.pageY;
+                        
+                        if (mouseX<=20 || mouseX>=screenw-20) {
+                            alertspeak();
+                            console.log("OUT");
+                        }
+                        if (mouseY<=20 || mouseY>=screenh-20) {
+                            alertspeak();
+                            console.log("OUT");
+                        }
+                        // console.log("X=");
+                        // console.log(mouseX);
+                        // console.log("Y=");
+                        // console.log(mouseY);
+
+                    }).mouseover();  
+                },100);     // START OF
                 // MAIN PROGRAM
                 function ttsSpeaker(x,y){
                     chrome.runtime.sendMessage({speakRate: y, toSay: x, operation:"SPEAK" }, function() {});
@@ -88,6 +111,11 @@ $(document).ready(function(){
                     {
                         target.removeClass("speakText");
                         ttsStop();
+                    }
+
+                    function alertspeak(){
+                        var alerttext = "Mouse outside the window";
+                        ttsSpeaker(alerttext, items.setRate);
                     }
                     //TO CHECK CLASS OF THE TARGET 
                     function classCheck()
