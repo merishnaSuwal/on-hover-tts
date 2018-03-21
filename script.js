@@ -36,11 +36,11 @@ $(document).ready(function(){
                             var alerttext = "Mouse outside the window";
                             ttsSpeaker(alerttext, items.setRate);
                             }
-                        if (mouseX<=20 || mouseX>=screenw-20) {
+                        if (mouseX<=10 || mouseX>=screenw-10) {
                             alertspeak();
                             console.log("OUT");
                         }
-                        if (mouseY<=20 || mouseY>=screenh-20) {
+                        if (mouseY<=10 || mouseY>=screenh-10) {
                             alertspeak();
                             console.log("OUT");
                         }
@@ -56,7 +56,7 @@ $(document).ready(function(){
                     if(e.key == 'F11')
                     {
                         var fullscreentext = "Full screen on";
-                        ttsSpeaker(fullscreentext);
+                        ttsSpeaker(fullscreentext, items.setRate);
                     }
                 });
 
