@@ -10,7 +10,7 @@ $(document).ready(function(){
             if (items.setState === "enable")
             {
                	var screenw = $( window ).width();
-                var screenh = $( window ).height();
+                var screenh = $( document ).height();
                 console.log(screenw);
                 console.log(screenh);
                 var mouseX, mouseY;
