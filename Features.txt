@@ -1,0 +1,6 @@
+MouseEAR for chrome
+- Speak on mouse hover
+- Stop speaking when nothing is hovered
+- Pause when 'Control' key is pressed 
+- Resume speaking from start when 'Shift' key is pressed.
+- Indicate full screen on when 'F11' is pressed.

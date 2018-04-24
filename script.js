@@ -9,12 +9,7 @@ $(document).ready(function(){
         }, function(items) {
             if (items.setState === "enable")
             {
-               	var screenw = $( window ).width();
-                var screenh = $( document ).height();
-                console.log(screenw);
-                console.log(screenh);
-                var mouseX, mouseY;
-                     // START OF
+                // START OF
                 // MAIN PROGRAM
                 function ttsSpeaker(x,y){
                     chrome.runtime.sendMessage({speakRate: y, toSay: x, operation:"SPEAK" }, function() {});
@@ -28,29 +23,7 @@ $(document).ready(function(){
                 function ttsResume(x,y){
                     chrome.runtime.sendMessage({speakRate: y,toSay: x, operation:"RESUME" }, function() {});
                 }
-                setTimeout(function(){                                 
-                    $(document).mousemove(function(e) {
-                        mouseX = e.pageX;
-                        mouseY = e.pageY;
-                        function alertspeak(){
-                            var alerttext = "Mouse outside the window";
-                            ttsSpeaker(alerttext, items.setRate);
-                            }
-                        if (mouseX<=10 || mouseX>=screenw-10) {
-                            alertspeak();
-                            console.log("OUT");
-                        }
-                        if (mouseY<=10 || mouseY>=screenh-10) {
-                            alertspeak();
-                            console.log("OUT");
-                        }
-                        // console.log("X=");
-                        // console.log(mouseX);
-                        // console.log("Y=");
-                        // console.log(mouseY);
-
-                    }).mouseover();  
-                },100);
+               
                 // FULLSCREEN KEY ALERT
                 $(document).keydown(function(e){
                     if(e.key == 'F11')
