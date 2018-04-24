@@ -5,7 +5,7 @@ var isSpeaking = false;
 $(document).ready(function(){ 
     chrome.storage.sync.get({
         setState: 'enable',
-        setRate: '0.5',
+        setRate: '1',
         }, function(items) {
             if (items.setState === "enable")
             {

@@ -23,7 +23,7 @@ function save_options() {
 function restore_options() {
   chrome.storage.sync.get({
     setState: 'enable',
-    setRate: '0.5',
+    setRate: '2',
   }, function(items) {
     document.getElementById('state').value = items.setState;
     document.getElementById("myRange").value = items.setRate;
