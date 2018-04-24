@@ -1,4 +1,4 @@
-# Mouse Enabled Accessible Reading (MouseEAR)
+# Mouse Enabled Accessible Reader (MouseEAR) v1.0
 
 ##  On-hover text-to-speech synthesizer
 
@@ -11,6 +11,11 @@ Go to **options** to *enable/disable* or to *set speed of narration*.
 Hover on text to read. 
 
 - Press *"Control"* button to pause read. 
-- Press *"Shift"* button to resume read.
+- Press *"Shift"* button to resume read from start.
 
-Alerts the user if the mouse goes outside the window.
+Remaining changes:
+
+- [x] Pause speaking on the press of a button.
+- [ ] Resume speaking from the point of stop (Has been implemented for Firefox).
+- [ ] Increase the performance.
+- [ ] Indicate Full screen OFF when 'F11' key is pressed twice.
