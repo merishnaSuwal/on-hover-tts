@@ -1,118 +1,141 @@
-var tagList = ['HTML', 'HEAD', 'BODY', 'DIV', 'SECTION']; 
+var tagList = ['HTML', 'HEAD', 'BODY', 'DIV', 'SECTION']; // Excluded list of tags
 var isSpeaking = false;
+
+// ON PAGE READY
 $(document).ready(function(){ 
     chrome.storage.sync.get({
         setState: 'enable',
-        setRate: '0.5',
+        setRate: '1',
         }, function(items) {
             if (items.setState === "enable")
             {
-            $(document).keydown(function(e){
-                if(e.key == 'F11')
-                {
-                    var fullscreentext = "Full screen on";
-                    var fullscreenmsg = new SpeechSynthesisUtterance(fullscreentext);
-                    fullscreenmsg.rate=items.setRate;
-                    speechSynthesis.speak(fullscreenmsg);   
+                // START OF
+                // MAIN PROGRAM
+                function ttsSpeaker(x,y){
+                    chrome.runtime.sendMessage({speakRate: y, toSay: x, operation:"SPEAK" }, function() {});
                 }
-            });
-	    // START OF
-            // MAIN PROGRAM
-            $(document).mousemove(function (e) {
-                //SELECT TARGET
-                var target = $(e.target);
+                function ttsStop(x,y){
+                    chrome.runtime.sendMessage({speakRate: y, toSay: x, operation:"STOP"}, function() {});
+                }
+                function ttsPause(x,y){
+                    chrome.runtime.sendMessage({speakRate: y, toSay: x, operation:"PAUSE"}, function() {});
+                }
+                function ttsResume(x,y){
+                    chrome.runtime.sendMessage({speakRate: y,toSay: x, operation:"RESUME" }, function() {});
+                }
+               
+                // FULLSCREEN KEY ALERT
+                $(document).keydown(function(e){
+                    if(e.key == 'F11')
+                    {
+                        var fullscreentext = "Full screen on";
+                        ttsSpeaker(fullscreentext, items.setRate);
+                    }
+                });
 
-                //FOR INPUT FIELD
-                var inputtext = target.attr("placeholder");
-                if(target.prop("tagName")=="INPUT"){
-                 inputtext = "Input field" + inputtext;
-                }
-                var inputmsg = new SpeechSynthesisUtterance(inputtext);
-                inputmsg.rate=items.setRate;
+                $(document).mouseover(function (e) {
+                    // SELECT TARGET
+                    var target = $(e.target);                
 
-                //FOR BUTTON TEXT
-                var msgtext = target.text();
-                if(target.prop("tagName")=="BUTTON"){
-                   msgtext = "Button text" + msgtext;
-                }
-                if(target.prop("tagName")=="A"){
-                   msgtext = "Link text" + msgtext;
-                }
-                var msg = new SpeechSynthesisUtterance(msgtext);
-                msg.rate=items.setRate;
+                    // FOR INPUT FIELDS
+                    var inputtext = target.attr("placeholder");
+                    if(target.prop("tagName")=="INPUT"){
+                     inputtext = "Input field" + inputtext;
+                    }
+                    // FOR BUTTON TEXT
+                    var msgtext = target.text();
+                    if(target.prop("tagName")=="BUTTON"){
+                       msgtext = "Button text" + msgtext;
+                    }
+                    // FOR LINK TEXTS
+                    if(target.prop("tagName")=="A"){
+                       msgtext = "Link text" + msgtext;
+                    }
+                    //FOR ALT TEXT
+                    var msgalt = target.attr("alt");
 
-                //FOR ALT TEXT
-                var msgalt = target.attr("alt");
-                var msgaltnew = new SpeechSynthesisUtterance(msgalt);
-                msgaltnew.rate=items.setRate;
+                    //FOR ARIA LABELS
+                    var msglabel= target.attr('aria-label');
 
-                //FOR ARIA LABELS
-                var msglabel= target.attr('aria-label');
-                var msglabelnew = new SpeechSynthesisUtterance(msglabel);
-                msglabelnew.rate=items.setRate;
+                    //TO SPEAK
+                    function speaker()
+                    {   
+                        ttsSpeaker(msgtext,items.setRate);
+                        ttsSpeaker(msgalt,items.setRate);
+                        ttsSpeaker(msglabel,items.setRate);
+                        ttsSpeaker(inputtext,items.setRate);
+                    }
 
-                //TO SPEAK
-                function speaker()
-                {   
-                    speechSynthesis.speak(msg);
-                    speechSynthesis.speak(inputmsg);
-                    speechSynthesis.speak(msgaltnew);
-                    speechSynthesis.speak(msglabelnew);
-                }
-                function pauseSpeaker(){
-                    target.removeClass("speakText");
-                    speechSynthesis.pause();
-                }
-                function resumeSpeaker(){
-                    target.addClass("speakText");
-                    speechSynthesis.resume();
-                }
-                //TO STOP
-                function stopSpeaker()
-                {
-                    target.removeClass("speakText");
-                    speechSynthesis.cancel();
-                }
-                //TO CHECK CLASS
-                function classCheck()
-                {
-                    if(target.is(".speakText") ) {
-                        speaker();
-                        var isSpeaking=true;
-                        // USE CTRL TO STOP
-                        if(isSpeaking) {
-                            $(document).keyup(function(e) {
-                                if(e.key === "Control"){
-                                    pauseSpeaker();
-                                    var isSpeaking = false;
-                                    console.log(isSpeaking);
-                                }
+                    // PAUSE THE SPEAKER
+                    function pauseSpeaker(){
+                        target.removeClass("speakText");
+                        ttsPause(msgtext,items.setRate);
+                        ttsPause(msgalt,items.setRate);
+                        ttsPause(msglabel,items.setRate);
+                        ttsPause(inputtext,items.setRate);
+                    }
+                    // RESUME THE SPEAKER
+                    function resumeSpeaker(){
+                        target.addClass("speakText");
+                        ttsResume(msgtext,items.setRate);
+                        ttsResume(msgalt,items.setRate);
+                        ttsResume(msglabel,items.setRate);
+                        ttsResume(inputtext,items.setRate);
+
+                    }
+                    //TO STOP
+                    function stopSpeaker()
+                    {
+                        target.removeClass("speakText");
+                        ttsStop();
+                    }
+
+                   
+                    //TO CHECK CLASS OF THE TARGET 
+                    function classCheck()
+                    {
+                        if(target.is(".speakText") ) {
+                            speaker();
+                            var isSpeaking=true;
+
+                            // CHECK IF IS SPEAKING = TRUE
+                            if(isSpeaking) {
                                 $(document).keyup(function(e) {
-                                    if(!isSpeaking){
-                                    
-                                        if(e.key === "Shift"){
-                                            resumeSpeaker();
-                                            var isSpeaking = true;
-                                            console.log(isSpeaking);
-                                        }
+                                    if(e.key === "Control"){
+                                        // TO PAUSE THE SPEAKER
+                                        pauseSpeaker();
+                                        var isSpeaking = false;
                                     }
-                                });
-                           });
+                                    $(document).keyup(function(e) {
+                                        // CHECK IF THE SPEAKER HAS BEEN PAUSED
+                                        if(!isSpeaking){
+                                            if(e.key === "Shift"){
+                                                // TO RESUME THE SPEAKER
+                                                resumeSpeaker();
+                                                var isSpeaking = true;
+                                            }
+                                        }
+                                    });
+                               });
+                            }
+                            
+                        }  // END OF IF 
+                    }  // END OF CLASSCHECK FUNCTION
+
+                    // CHECK IF THE TAGS ARE NOT EXCLUDED
+                    if(tagList.indexOf(target.prop("tagName")) == -1){
+                        target.addClass("speakText");
+                        setTimeout(function(){
+                            $(target).mouseleave(function(){
+                                stopSpeaker();  // STOP SPEAKER ON MOUSELEAVE
+                            });
+                        },10);
+
+                        // CHECK FOR "SPEAKTEXT" CLASS
+                        classCheck(); 
                         }
-                        
-                    }
-                }
-                if(tagList.indexOf(target.prop("tagName")) == -1){
-                    target.addClass("speakText");
-                    setTimeout(function(){
-                        $(target).mouseleave(function(){
-                            stopSpeaker();  
-                        });
-                    },10);
-                    classCheck();     
-                    }
-            }); //END of MAIN PROGRAM
-        }    
+
+                 }); //END of MAIN PROGRAM
+            }     
     });
 });
-
